@@ -153,23 +153,23 @@ $\rest{T}{W}\prs{w} = T\prs{w}$.
 
 \begin{definition}
 יהי
-$V$
+$W$
 מרחב וקטורי ויהיו
-$U,W \leq V$
+$U,V \leq W$
 כך שהסכום
-$U \oplus W$
+$U \oplus V$
 ישר.
 יהיו
-$T \colon U \to U$
+$T \colon U \to W'$
 ו־%
-$S \colon W \to W$
+$S \colon V \to W'$
 העתקות לינאריות. נגדיר את
 \emph{הסכום הישר של
 $S,T$}
 על ידי
 \begin{align*}
-T \oplus S \colon U \oplus W &\to U \oplus W \\
-\text{.} \hspace{4em} u+w &\mapsto T\prs{u} + S\prs{w}
+T \oplus S \colon U \oplus V &\to W' \\
+\text{.} \hspace{4em} u+v &\mapsto T\prs{u} + S\prs{v}
 \end{align*}
 \end{definition}
 
@@ -731,15 +731,20 @@ $\alpha_{v_1} = \alpha_{v_2}$
 בסתירה.
 \end{solution}
 
-\begin{exercise}[המימד של מרחב מחזורי]
+\begin{exercise}[המימד של מרחב עצמי מוכלל]
 תהא
-$A \in M_n\prs{\mbb{C}}$.
+$A \in M_n\prs{\mbb{F}}$.
 נגדיר
-\[V\prs{A, \lambda} \ceq \set{v \in \mbb{C}^n}{\exists k \in \mbb{N} \colon \prs{A- \lambda I}^k v = 0}\]
+\[V\prs{A, \lambda} \ceq \set{v \in \mbb{F}^n}{\exists k \in \mbb{N} \colon \prs{A- \lambda I}^k v = 0}\]
 מרחב הוקטורים שמתאפסים על ידי חזרה כלשהי של
 $A - \lambda I$.
+נקרא לו
+\emph{המרחב העצמי המוכלל של
+$\lambda$}.
 הוכיחו
-$\dim V\prs{A, \lambda} = r_a\prs{\lambda}$.
+$\dim V\prs{A, \lambda} = r_a\prs{\lambda}$
+כאשר
+$\mbb{F} = \mbb{C}$.
 \end{exercise}
 
 \begin{solution}
@@ -827,15 +832,64 @@ $\lambda \neq \mu$,
 
 \begin{exercise}
 יהיו
-$U,V,W$
-מרחבים וקטוריים מעל שדה
-$\mbb{F}$.
-הראו שמתקיים
-\[\text{.} \hom\prs{U \oplus V, W} \cong \hom\prs{U, W} \oplus \hom\prs{V,W}\]
+$T,S$
+העתקות מתחלפות. הוכיחו כי כל מרחב עצמי של
+$T$
+הוא תת מרחב
+$S$%
+־שמור.
 \end{exercise}
 
 \begin{solution}
+יהי
+$v \in V$
+ו"ע של
+$T$
+עם ע"ע
+$\lambda$.
+מתקיים
+\[T S v = S T v = S \lambda v = \lambda S v \]
+לכן
+$S v$
+שייך למרחב העצמי של
+$T$
+עם ע"ע
+$\lambda$.
+\end{solution}
 
+\begin{exercise}
+הוכיחו כי אם כל מרחב עצמי של העתקה לכסינה
+$T$
+הוא
+$S$%
+־שמור, אז
+$S,T$
+מתחלפות בכפל.
+\end{exercise}
+
+\begin{solution}
+יהי
+$B$
+בסיס של ו"ע של
+$T$.
+מספיק לבדוק
+$ST v = TS v$
+לכל
+$v \in B$
+ואכן
+אם
+$v \in B$
+עם ע"ע
+$\lambda$
+מתקיים
+\begin{align*}
+STv = \lambda Sv = TSv
+\end{align*}
+כאשר השוויון הימני נכון כי המרחב העצמי של
+$\lambda$
+הוא
+$S$%
+־שמור.
 \end{solution}
 
 \end{document}

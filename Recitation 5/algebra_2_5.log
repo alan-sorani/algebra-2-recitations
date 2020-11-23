@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.12.0 (MiKTeX 20.7) (format=lualatex 2020.9.3)  23 NOV 2020 17:45
+This is LuaHBTeX, Version 1.12.0 (MiKTeX 20.7) (format=lualatex 2020.9.3)  23 NOV 2020 21:02
  restricted system commands enabled.
 **algebra_2_5.tex
 (./algebra_2_5.tex
@@ -1347,19 +1347,19 @@ ilable
 (Font)              Font shape `TU/OpenSansHebrew(0)/b/it' tried instead on inpu
 t line 279.
  [2] [3]
+[4]
 \tf@thm=\write4
 
 \openout4 = algebra_2_5.thm
-
-[4] (./algebra_2_5.aux))
+ [5] (./algebra_2_5.aux))
 
 Here is how much of LuaTeX's memory you used:
  24468 strings out of 481302
  100000,1144653 words of node,token memory allocated
- 789 words of node memory still in use:
-   7 hlist, 2 vlist, 2 rule, 4 dir, 2 glue, 4 kern, 1 glyph, 93 attribute, 61 gl
-ue_spec, 33 attribute_list, 2 write nodes
-   avail lists: 1:3,2:1966,3:158,4:33,5:676,6:23,7:3153,8:45,9:536,10:9
+ 781 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 4 dir, 2 glue, 4 kern, 1 glyph, 90 attribute, 61 gl
+ue_spec, 32 attribute_list, 2 write nodes
+   avail lists: 1:3,2:1970,3:158,4:33,5:678,6:25,7:3301,8:45,9:536,10:9
  40691 multiletter control sequences out of 65536+200000
  94 fonts using 7331035 bytes
  68i,18n,88p,820b,660s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1380,9 +1380,9 @@ ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Ela
 dT/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb>
 <C:/Users/EladT/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbol
 s/msbm10.pfb>
-Output written on algebra_2_5.pdf (4 pages, 157731 bytes).
+Output written on algebra_2_5.pdf (5 pages, 159156 bytes).
 
-PDF statistics: 90 PDF objects out of 1000 (max. 8388607)
+PDF statistics: 93 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
  16 words of extra memory for PDF output out of 10000 (max. 100000000)
 
