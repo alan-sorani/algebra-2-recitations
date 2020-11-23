@@ -1,0 +1,841 @@
+\RequirePackage{luatex85}
+\PassOptionsToPackage{luatex}{hyperref}
+
+\documentclass[article, 10pt,oneside]{article}
+
+%\counterwithout{section}{chapter}
+
+%%%%%%%%%%%%%
+%  Geometry %
+%%%%%%%%%%%%%%
+
+\RequirePackage{geometry}
+\geometry{
+	 a4paper,
+	 inner=20mm,
+	 outer=30mm,
+	 marginparwidth = 20mm,
+	 top = 20mm,
+	 bottom = 20mm
+	}
+
+\setlength{\parindent}{0pt}
+
+%%%%%%%%%
+% Babel %
+%%%%%%%%%
+
+\usepackage[nil,bidi=basic-r]{babel}
+\babelprovide[import=he,main]{hebrew}
+\babelprovide[import=en-GB]{english}
+
+\babelfont[hebrew]{rm}{Open Sans Hebrew}
+
+\newcommand{\texthebrew}[1]{\foreignlanguage{hebrew}{#1}}
+\newcommand{\nikud}[1]{$\mbox{\H{#1}}$}
+\newcommand{\textenglish}[1]{\foreignlanguage{english}{#1}}
+\newcommand{\LR}[1]{{‏\textdir TLT #1}}
+
+%%%%%%%%%%%%
+% Styling %
+%%%%%%%%%%%%
+
+\renewcommand{\emph}[1]{\textbf{#1}}
+
+%%%%%%%%%%
+% Maths  %
+%%%%%%%%%%
+
+\usepackage{math-symbols}
+\usepackage{math-fonts}
+\usepackage{math-graphics}
+\usepackage{math-theorems-heb}
+
+%%%%%%%%%%%%%
+% Counters  %
+%%%%%%%%%%%%%
+
+\setcounter{section}{1}
+
+%%%%%%%%%%
+% Title  %
+%%%%%%%%%%
+\title{
+אלגברה ב' \\ תרגול 5 -- סכומים ישרים ותת־מרחבים שמורים
+}
+\author{אלעד צורני}
+\date{
+25 באוקטובר 2020
+}
+
+\begin{document}
+\maketitle
+
+\section*{מבוא}
+
+כעת לאחר שהשתכנענו בשימושיות של צורת ז'ורדן, נעבור לשלב של פיתוח הכלים לקראת הוכחת משפט ז'ורדן. נתחיל בדיון בסכומים ישרים ותת־מרחבים שמורים, אשר הרעיון מאחוריהם הוא הבנה של אופרטור לינארי על מרחב וקטורי באמצעות הבנה של הפעולה שלו על אוסף תת־מרחבים שמרכיבים אותו.
+
+\section*{תזכורת}
+
+\begin{definition}[סכום ישר של תת־מרחבים]
+יהי
+$V$
+מרחב וקטורי ויהיו
+$U,W \leq V$
+תת־מרחבים.
+נאמר שהסכום
+$U + W$
+הוא
+\emph{ישר}
+ונסמו
+$U \oplus W$
+אם כל וקטור ב־%
+$U+W$
+ניתן להצגה כסכום
+$u + w$
+בצורה יחידה עבור
+$u \in U, w \in W$.
+\end{definition}
+
+\begin{remark}
+ראינו באלגברה א' שהסכום
+$U + W$
+ישר אם ורק אם
+$\dim\prs{U \cap W} = 0$,
+אם ורק אם
+$\dim\prs{U+W} = \dim\prs{U} + \dim\prs{W}$.
+\end{remark}
+
+\begin{definition}[סכום ישר של מרחבים וקטוריים]
+יהיו
+$V,W$
+מרחבים וקטוריים מעל שדה
+$\mbb{F}$.
+נגדיר את
+\emph{הסכום הישר}
+שלהם
+$V \oplus W$
+על ידי
+\[V \oplus W \ceq \set{v+w}{\substack{v \in V \\ w \in W}}\]
+עם פעולת החיבור
+\[\text{.} \prs{v+w} + \prs{v'+w'} = \prs{v+v'} + \prs{w+w'}\]
+\end{definition}
+
+\begin{remark}
+כאשר
+$V,W$
+תת־מרחבים של אותו מרחב וקטורי, ומתקיים
+$V \cap W = \set{0}$,
+שתי ההגדרות של הסכום הישר מסכימות.
+\end{remark}
+
+\begin{definition}[תת־מרחב שמור]
+יהי
+$V$
+מרחב וקטורי ויהי
+$T \colon V \to V$
+אופרטור לינארי. נאמר שתת־מרחב
+$W \leq V$
+הוא
+\emph{$T$%
+־שמור}, או
+\emph{$T$%
+־אינווריאנטי}, אם
+$T\prs{w} \in W$
+לכל
+$w \in W$.
+
+במקרה זה נגדיר גם
+$\rest{T}{W} \colon W \to W$
+על ידי
+$\rest{T}{W}\prs{w} = T\prs{w}$.
+\end{definition}
+
+\begin{definition}
+יהי
+$V$
+מרחב וקטורי ויהיו
+$U,W \leq V$
+כך שהסכום
+$U \oplus W$
+ישר.
+יהיו
+$T \colon U \to U$
+ו־%
+$S \colon W \to W$
+העתקות לינאריות. נגדיר את
+\emph{הסכום הישר של
+$S,T$}
+על ידי
+\begin{align*}
+T \oplus S \colon U \oplus W &\to U \oplus W \\
+\text{.} \hspace{4em} u+w &\mapsto T\prs{u} + S\prs{w}
+\end{align*}
+\end{definition}
+
+\section*{תרגילים}
+
+\begin{exercise}
+מצאו דוגמא למרחב וקטורי
+$V$,
+אופרטור לינארי
+$T \colon V \to V$
+ותת־מרחב
+$T$%
+־שמור
+$W$
+כך של־%
+$W$
+אין משלים ישר
+$T$%
+־שמור.
+\end{exercise}
+
+\begin{solution}
+נשים לב כי תת־מרחב ממימד
+$1$
+הוא
+$T$%
+־שמור אם ורק אם הוא נפרש על ידי וקטור עצמי של
+$T$.
+אכן, אם
+$T\prs{v} \in \spn\set{v}$
+אז
+$T\prs{v} = \alpha v$
+עבור
+$\alpha \in \mbb{F}$.
+
+נסתכל על ההעתקה
+\[T \colon \mbb{C}^2 \to \mbb{C}^2\]
+המוגדרת על ידי
+$T\prs{\pmat{x \\ y}} = \pmat{y & 0}$
+ומיוצגת בבסיס הסטנדרטי על ידי
+$J_2\prs{0} = \pmat{0 & 1 \\ 0 & 0}$.
+אז
+$W = \spn\set{\pmat{1 \\ 0}}$
+תת־מרחב שמור של
+$T$.
+
+נניח כי
+$U$
+משלים ישר
+$T$%
+־שמור של
+$W$
+ויהי
+$u \in U$
+שונה מאפס.
+נכתוב
+$u = \pmat{u_1 \\ u_2}$
+כאשר
+$u_2 \neq 0$
+כי אחרת
+$U \cap W \neq \set{0}$.
+נקבל
+\[Tu = \pmat{u_2 \\ 0} \in W\]
+אבל גם
+$Tu \in U$
+כי
+$U$
+מרחב
+$T$%
+־שמור.
+לכן
+$Tu = 0$
+ולכן
+$u_2 = 0$,
+בסתירה להנחה.
+
+לכן אין ל־%
+$W$
+משלים
+$T$%
+־שמור.
+\end{solution}
+
+\begin{exercise}
+יהי
+$V$
+מרחב וקטורי סוף־מימדי,
+$B$
+בסיס ל־%
+$V$
+ו־%
+$W \leq V$
+תת־מרחב של
+$V$.
+הוכיחו כי ל־%
+$W$
+קיים משלים ישר הנפרש על ידי איברים של
+$B$.
+\end{exercise}
+
+\begin{solution}
+נסמן
+$k \ceq \dim W$.
+נבנה את המשלים הישר באופן אינדוקטיבי. נתחיל בלמה.
+
+\begin{lemma}
+לכל תת־מרחב
+$U \lneq V$
+קיים
+$b \in B \setminus U$.
+\end{lemma}
+\begin{proof}
+אחרת נקבל
+$B \subseteq U$
+ולכן
+$V = \spn\prs{B} \subseteq U$
+בסתירה להנחה.
+\end{proof}
+
+כעת, ניתן לבחור
+$b_1 \in B \setminus W$.
+לאחר מכן ניתן לבחור
+$b_2 \in B \setminus W + \spn\set{b_1}$
+וכן הלאה, כאשר בשלב ה־%
+$i$
+נבחר
+$b_i \in B \setminus \prs{W + \spn\set{b_1, \ldots, b_{i-1}}}$.
+לבסוף נמצא
+$n-k$
+וקטורים
+$b_1, \ldots, b_{n-k} \in B$
+עבורם
+$V = W + \spn\set{b_1, \ldots, b_{n-k}}$.
+
+נסמן
+$U \ceq \spn\set{b_1, \ldots, b_{n-k}}$
+ויהי
+$B'$
+בסיס ל־%
+$W$.
+כיוון שכל
+$b_i$
+בלתי־תלוי באיברי
+$B'$
+נקבל כי כל
+$v = \sum_{i \in [n-k]} \alpha_i b_i$
+גם בלתי־תלוי באיברי
+$B'$,
+ולכן
+$U \cap W = \set{0}$.
+
+לכן
+$U+W$
+סכום ישר.
+\end{solution}
+
+\begin{exercise}
+מצאו את כל תת־המרחבים השמורים של המטריצות הבאות.
+
+\begin{enumerate}
+\item
+\[A = \pmat{i & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & i & 0 \\ 0 & 0 & 0 & 3}\]
+\item
+\[B = J_3\prs{3} = \pmat{3 & 1 & 0 \\ 0 & 3 & 1 \\ 0 & 0 & 3}\]
+\item
+\[C = \pmat{0 & 1 \\ -1 & 0}\]
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+אם
+$W$
+תת־מרחב של
+$V$
+עם בסיס
+$\prs{w_1, \ldots, w_k}$,
+יש מהתרגיל הקודם משלים ישר
+$U$
+עם בסיס
+$\prs{v_1, \ldots, v_{n-k}}$.
+אז
+$B \ceq \prs{w_1, \ldots, w_k, v_1, \ldots, v_{n-k}}$
+בסיס ל־%
+$V$
+ו־%
+$W$
+הוא
+$T$%
+־שמור אם ורק אם
+\[\brs{T}_B = \pmat{X & Y \\ 0 & Z}\]
+עבור מטריצות
+$X \in \mbb{F}^{k \times k}$, $Y \in \mbb{F}^{k \times n}$
+ו־%
+$Z \in \mbb{F}^{\prs{n-k} \times \prs{n-k}}$.
+
+כפי שראינו בתרגול 2, יש בסיס של
+$W$
+שבו ההעתקה
+$\rest{T}{W}$
+מיוצגת כמטריצה משולשת עליונה. לכן נוכל להניח כי
+$X$
+משולשת עליונה על ידי בחירת בסיס מתאים.
+
+\begin{enumerate}
+\item%A
+נסמן
+\begin{align*}
+T_A \colon V &\to V \\
+v &\mapsto Av
+\end{align*}
+ ויהי
+ $W$
+ תת־מרחב
+ $A$%
+ ־שמור ממימד
+ $k$.
+ מהפירוט הקודם,
+ $T_A$
+מיוצגת בבסיס
+$B_W \ceq \prs{w_1, \ldots, w_k, v_1, \ldots, v_{n-k}}$
+על ידי מטריצה
+$A' = \pmat{X & Y \\ 0 & Z}$
+כאשר
+$X \in \mbb{F}^{k \times k}$
+משולשת עליונה ועבור
+$\prs{w_1, \ldots, w_k}$
+בסיס של
+$W$. 
+
+הערכים העצמיים של
+$\rest{T_A}{W}$
+הם גם כאלה של
+$T$
+ולכן יכולים להיות
+$i,i,1,3$
+כולל ריבויים. אם
+$1$
+או
+$3$
+ע"ע של
+$\rest{T_A}{W}$,
+בהכרח
+$W$
+מכיל את המרחב העצמי של אותו ע"ע.
+אם
+$i$
+ע"ע מריבוי
+$1$,
+$W$
+ מכיל וקטור עצמי כלשהו של
+ $T_A$
+ עם ע"ע
+ $i$.
+ אם
+ $i$
+ ע"ע מריבוי
+ $2$,
+ $W$
+ בהכרח מכיל את כל המרחב העצמי של
+ $i$,
+ כיוון שאחרת נבחר את
+ $B'$
+ כך ש־%
+ $v_j$
+ כלשהו יהיה ו"ע של
+ $i$,
+ ונקבל כי
+ $i$
+ ע"ע של
+ $A'$
+ מריבוי לפחות
+ $3$.
+ 
+ לסיכום,
+ $W$
+ הוא סכום של חלק מהמרחבים
+ \[\text{.} \spn\set{\alpha e_1 + \beta e_3}{\alpha,\beta \in \mbb{C}}, \quad \spn\set{e_2}, \quad \spn\set{e_4}\]
+
+\item כאן הע"ע היחיד האפשרי של
+$X$
+הוא
+$3$,
+והריבוי הגיאומטרי שלו הוא
+$1$
+מפני שהוא לפחוד
+$1$
+וחסום על ידי זה של
+$B$.
+לכן האפשרויות ל־%
+$X$
+הן
+\[\text{.} \pmat{3}, \quad \pmat{3 & \alpha \\ 0 & 3}, \quad \pmat{3 & \alpha & \beta \\ 0 & 3 & \gamma \\ 0 & 0 & 3}\]
+במקרה הראשון והשלישי נקבל
+$W = \spn\prs{e_1}$
+ו־%
+$W = \spn\set{e_1, e_2, e_3}$.
+ במקרה השני, הוקטור הנוסף לא יכול להכיל רכיב בכיוון
+ $e_3$
+וחייב להכיל רכיב בכיוון
+$e_2$
+ולכן נקבל
+$W = \spn\set{e_1, e_2}$.
+
+\item
+$C$
+לכסינה עם מטריצה אלכסונית
+$\pmat{i & 0 \\ 0 & -i}$
+והמרחבים השמורים יהיו סכומים ישרים של המרחבים העצמיים של הע"ע
+$\pm i$.
+
+נשים לב כי מעל
+$\mbb{R}$
+למטריצה אין מרחבים שמורים לא טריוויאליים, כיוון שכל מרחב כזה צריך להיות חד־מימדי ולכן להיפרש על ידי ו"ע של
+$C$,
+שלא קיים מעל
+$\mbb{R}$.
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}
+יהי
+$V$
+מרחב וקטורי ממימד
+$n$
+ויהי
+$T \colon V \to V$
+אופרטור לינארי.
+הוכיחו כי קיים בסיס
+$B$
+ל־%
+$V$
+בו
+$\brs{T}_B$
+משולשת עליונה אם ורק אם קיימת סדרה של תת־מרחבים
+$T$%
+־שמורים
+\[\text{.} \set{0} = V_0 \lneq V_1 \lneq \ldots \lneq V_n = V\]
+\end{exercise}
+
+\begin{solution}
+יהי
+$E$
+הבסיס 
+נניח כי קיים בסיס
+$B = \prs{v_1, \ldots, v_n}$
+כנ"ל ונגדיר
+$V_i = \spn\set{v_1, \ldots, v_i}$
+לכל
+$i \in [n]$.
+אלו אכן מרחבים
+$T$%
+־שמורים כי
+
+\begin{otherlanguage}{english}
+\begin{align*}
+\brs{T v_i}_B &= \brs{T}_B \brs{v_i}_B
+\\&= \pmat{\prs{\brs{T}_B}_{1,i} \\ \vdots \\ \prs{\brs{T}_B}_{n,i}}
+\\&= \pmat{\prs{\brs{T}_B}_{1,i} \\ \vdots \\ \prs{\brs{T}_B}_{i,i} \\ 0 \\ \vdots \\ 0}
+\end{align*}
+\end{otherlanguage}
+
+כאשר השוויון האחרון נכון כי
+$\brs{T}_B$
+משולשת עליונה, מה שאומר
+\[\text{.} T v_i = \sum_{j \in [i]} \prs{\brs{T}_B}_{j,i} v_j \subseteq V_i\]
+מימד המרחבים אכן גדל ב־%
+$1$
+בכל שלב, ולכן הם מקיימים את הדרישה.
+
+בכיוון השני, נניח כי קיימת סדרה של תת־מרחבים
+$T$%
+־שמורים כנ"ל. נבחר
+$v_i \in V_i \setminus V_{i-1}$
+לכל
+$i \in [n]$
+ונבחר
+$B = \prs{v_1, \ldots, v_n}$.
+אז כל
+$v_i$
+הוא לא צירוף לינארי של קודמיו, מה שאומר ש־%
+$B$
+בסיס.
+מכיוון שהמרחבים
+$T$%
+־שמורים, מתקיים
+
+\begin{otherlanguage}{english}
+\begin{align*}
+\pmat{\prs{\brs{T}_B}_{1,i} \\ \vdots \\ \prs{\brs{T}_B}_{n,i}} &= \brs{T}_B \brs{v_i}_B
+= \brs{T v_i}_B = \brs{\sum_{j \in [i]} \alpha_j v_j}_B = \sum_{j \in [i]} \alpha_j \brs{v_j}_B
+\end{align*}
+\end{otherlanguage}
+
+לכן
+$\brs{T}_B$
+משולשת עליונה.
+\end{solution}
+
+\begin{remark}
+ניתן להסיק תוצאה דומה עבור מטריצות משולשות תחתונות על ידי בחירה הפוכה של הבסיס
+$B$.
+\end{remark}
+
+\begin{remark}
+בתרגיל זה
+$V$
+הינו מרחב וקטורי מעל שדה כללי
+$\mbb{F}$.
+שימו לב כי בתרגול 2 הוכחנו כי כל מטריצה מעל המרוכבים דומה למטריצה משולשת. לכן, אם
+$V$
+מרחב וקטורי מעל
+$\mbb{C}$
+ו־%
+$T \colon V \to V$
+קיימים תת־מרחבים
+$T$%
+־שמורים
+\[\text{.} \set{0} = V_0 \lneq V_1 \lneq \ldots \lneq V_n = V\]
+\end{remark}
+
+\begin{exercise}
+\begin{enumerate}
+\item
+תהי
+$A \in M_n\prs{\mbb{R}}$
+ויהיו
+$u,v \in \mbb{R}^n$
+עבורם
+$u + iv$
+ו"ע של
+$A$
+מעל
+$\mbb{C}$.
+הוכיחו כי
+$\spn\set{u,v}$
+הוא תת־מרחב
+$A$%
+־שמור של
+$\mbb{R}^n$.
+\item הסיקו כי לכל
+$A \in M_n\prs{\mbb{R}}$
+קיים תת־מרחב שמור ממימד
+$1$
+או
+$2$.
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\begin{enumerate}
+\item
+נתון כי
+$u+iv$
+ו"ע של
+$A$
+עם ע"ע מרוכב
+$\lambda$.
+נשים לב שאנחנו עובדים מעל
+$\mbb{C}$
+ושרק ידוע שקיים ע"ע מרוכב.
+לכן נכתוב
+$\lambda = a+bi$
+עבור
+$a,b \in \mbb{R}$
+ונקבל
+\[\text{.} A\prs{u+iv} = \prs{a+bi}\prs{u+iv} = au -bv + i\prs{av + bu}\]
+כעת,
+$a,b,c,d \in \mbb{R}$
+ונרצה להשוות מקדמים.
+מתקיים
+\[A\prs{u+iv} = Au + \prs{Av}i\]
+ולכן נקבל את המשוואות
+\begin{align*}
+Au &= au - bv \\
+\text{.} Av &= av + bu 
+\end{align*}
+לכן
+$Au, Av \in \spn\set{u,v}$
+ולכן
+$\spn\set{u,v}$
+תת־מרחב
+$A$%
+־שמור.
+\item
+תהי
+$A \in M_n\prs{\mbb{R}}$.
+קיים ל־%
+$A$
+ערך עצמי מרוכב כלשהו
+$\lambda \in \mbb{C}$
+(כיוון שלפולינום המינימלי יש שורש מרוכב).
+אם
+$\lambda$
+ממשי עם ו"ע
+$v$
+נקבל כי
+$\spn\set{v}$
+תת־מרחב
+$A$%
+־שמור.
+אחרת, יש ל־%
+$\lambda$
+ו"ע
+$u+iv$
+עבור
+$u,v \in \mbb{R}^n$
+ונקבל מסעיף 1 כי
+$\spn\set{u,v}$
+תת־מרחב
+$A$%
+־שמור, שהינו ממימד
+$1$
+או
+$2$.
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}
+יהי
+$T \colon V \to V$
+אופרטור לינארי כך שכל תת־מרחב של
+$V$
+הוא
+$T$%
+־שמור.
+הוכיחו כי
+$T$
+אופרטור סקלרי.
+\end{exercise}
+
+\begin{solution}
+נשים לב כי הפעלת הנתוון על מרחבים וקטוריים חד־מימדיים
+$W = \spn\set{v}$
+נותנת כי
+$T\prs{v} \in W$.
+במקרה זה קיים
+$\alpha_v \in \mbb{F}$
+עבורו
+$T\prs{v} = \alpha_v v$
+ולכן
+$v$
+וקטור־עצמי של
+$T$.
+נניח כי יש
+$v_1, v_2$
+עבורם
+$\alpha_{v_1} \neq \alpha_{v_2}$.
+אז
+\[\text{.} \alpha{v_1} v_1 + \alpha_{v_2} v_2 = T\prs{v_1 + v_2} = \alpha_{v_1 + v_2} \prs{v_1 + v_2}\]
+$v_1,v_2$
+בת"ל כי אחרת
+$\alpha_{v_1} = \alpha_{v_2}$,
+לכן נוכל להשוות מקדמים ונקבל
+$\alpha_{v_1} = \alpha_{v_1 + v_2}$
+וגם
+$\alpha_{v_2} = \alpha_{v_1 + v_2}$.
+אז
+$\alpha_{v_1} = \alpha_{v_2}$
+בסתירה.
+\end{solution}
+
+\begin{exercise}[המימד של מרחב מחזורי]
+תהא
+$A \in M_n\prs{\mbb{C}}$.
+נגדיר
+\[V\prs{A, \lambda} \ceq \set{v \in \mbb{C}^n}{\exists k \in \mbb{N} \colon \prs{A- \lambda I}^k v = 0}\]
+מרחב הוקטורים שמתאפסים על ידי חזרה כלשהי של
+$A - \lambda I$.
+הוכיחו
+$\dim V\prs{A, \lambda} = r_a\prs{\lambda}$.
+\end{exercise}
+
+\begin{solution}
+נראה קודם שמתקיים
+$V\prs{A', \lambda} = V\prs{A, \lambda}$
+עבור
+$A' = P^{-1} A P$
+דומה ל־%
+$A$.
+אכן, לכל
+\[v = P^{-1} u \in P^{-1} V\prs{A,\lambda}\]
+יש
+$k \in \mbb{N}$
+עבורו
+$\prs{A-I}^k v = 0$,
+ואז
+\[\text{.} \prs{A' - \lambda I}^k v = P^{-1} \prs{A - \lambda I}^k P v = P^{-1} \prs{A-\lambda I}^k u = P^{-1} 0 = 0\]
+לכן
+$P^{-1} V\prs{A,\lambda} \subseteq V\prs{A', \lambda}$
+ועם החלפת תפקידים נקבל הכלה בכיוון ההפוך.
+לכן
+$V\prs{A', \lambda} = V\prs{A, \lambda}$.
+
+כעת,
+$A$
+דומה למטריצה
+$A'$
+בצורת ז'ורדן, ומהנ"ל נוכל להניח ש־%
+$A$
+עצמה בצורת ז'ורדן.
+חזקה
+$\prs{A - \mu I}^k$
+היא מטריצת בלוקים עם בלוקים
+$\prs{J_{m_i}\prs{\lambda_i} - \mu I}^k$.
+עבור
+$\mu \neq \lambda_i$
+המטריצה
+$J_{m_i}\prs{\lambda_i|} - \mu I$
+הפיכה, ולכן גם כל חזקה שלה הפיכה.
+אחרת, נקבל בלוק
+$J_m\prs{\mu} - \mu I$
+ששולח את הוקטור
+$e_j$
+לוקטור
+$e_{j-1}$
+ואת
+$e_1$
+לאפס.
+לכן מספר הוקטורים ב־%
+$V\prs{A, \mu}$
+הוא כמספר הפעמים ש־%
+$\mu$
+מופיע על האלכסון, שהוא סכום גדלי הבלוקים עם ע"ע
+$\mu$,
+שהוא
+$r_a\prs{\lambda}$.
+\end{solution}
+
+\begin{remark}
+למעשה הפתרון מראה
+\[V\prs{A, \lambda} = \ker\prs{A - \lambda I}^{k_\lambda}\]
+כאשר
+$k_\lambda$
+גודל הבלוק המקסימלי עם ע"ע
+$\lambda$
+בצורת ז'ורדן של
+$A$.
+\end{remark}
+
+\begin{remark}
+ממשפט קיילי המילטון אנו יודעים
+$p_A\prs{A} = 0$,
+ומהגדרת הפולינום האופייני מתקיים
+$\sum r_a\prs{\lambda} = n$.
+לכן נקבל מהתרגיל
+$\sum \dim V\prs{A, \lambda} = n$.
+הפולינומים
+$\prs{x - \lambda}^k, \prs{x-\mu}^m$
+זרים עבור
+$\lambda \neq \mu$,
+ולכן מתרגיל בתרגול 3
+\[\text{.} V = \bigoplus_{\lambda} V\prs{A, \lambda}\]
+מסקנה זאת נקראת משפט הפירוק הפרימרי ונדון בה בהמשך הקורס.
+\end{remark}
+
+\begin{exercise}
+יהיו
+$U,V,W$
+מרחבים וקטוריים מעל שדה
+$\mbb{F}$.
+הראו שמתקיים
+\[\text{.} \hom\prs{U \oplus V, W} \cong \hom\prs{U, W} \oplus \hom\prs{V,W}\]
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\end{document}
